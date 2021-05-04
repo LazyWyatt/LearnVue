@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // const obj = new Object();
+      // 字面量 直觀的寫法
+      // const obj = {
+      //   name: 'wyatt',
+      //   age: 18,
+      //   run: function () {
+      //     console.log('在奔跑')
+      //   },
+      //   eat: function () {
+      //     console.log('在吃東西')
+      //   },
+      // }
+
+      // 1.屬性的增強寫法
+      const name = 'wyatt'
+      const age = 22
+      const height = 1.65
+
+      //ES5
+      // const obj = {
+      //   name: name,
+      //   age: age,
+      //   height: height,
+      // }
+
+      //ES6
+      const obj = {
+        name,
+        age,
+        height,
+      }
+      console.log(obj)
+
+      // 2.函數的增強寫法
+
+      // const obj = {
+      //   run: function () {},
+      //   eat: function () {},
+      // }
+
+      const obj = {
+        run() {},
+        eat() {},
+      }
+    </script>
+  </body>
+</html>

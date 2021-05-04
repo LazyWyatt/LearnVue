@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1. stop修飾符的使用 -->
+      <div @click="divClick" class="divClick">
+        <button @click.stop="btnClick">按鈕</button>
+      </div>
+
+      <!-- 2.prevent修飾符的使用 -->
+      <form action="contact">
+        <input type="submit" value="submit" @click.prevent="submitClick" />
+      </form>
+
+      <!-- 3.監聽某個鍵盤的鍵帽點擊 -->
+      <input type="text" v-on:keyup="keyUp" />
+      <input type="text" v-on:keyup.enter="keyEnter" />
+
+      <!-- 4. .once的使用 -->
+      <button @click.once="onceClick">按鈕</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: '被點擊了',
+        },
+        methods: {
+          btnClick() {
+            console.log('btnClick')
+          },
+          divClick() {
+            console.log('divClick')
+          },
+          submitClick() {
+            console.log('submitClick')
+          },
+          keyUp() {
+            console.log('keyUp')
+          },
+          keyEnter() {
+            console.log('keyEnter')
+          },
+          onceClick() {
+            console.log('onceClick')
+          },
+        },
+      })
+
+      //如果函數需要參數,但是沒有傳入， 那麼函數的形參為undefined
+
+      // function abc(name) {
+      //   console.log(name)
+      // }
+      // abc()
+    </script>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>按鈕1</button>
+    <button>按鈕2</button>
+    <button>按鈕3</button>
+    <button>按鈕4</button>
+    <button>按鈕5</button>
+    <script>
+      //ES5之前因為if跟for都沒有塊質作用域的概念，很多實用都必須借助function的作用域來解決外面變數的問題
+      //ES6加入了let 他是有我們if和for的塊質作用域
+      //1.變量作用域: 變量在哪個地方是可以用的
+      // {
+      //   var name = 'wyatt'
+      //   console.log(name)
+      // }
+      // console.log(name)
+
+      // 2.沒有塊值作用域引起的問題
+      // var func
+      // name = 'I hacked the name'
+      // // 變量提升 + var沒有塊值不抱錯
+
+      // if (true) {
+      //   console.log(name) //'I hacked the name'
+      //   var name = 'wyatt'
+      //   console.log(name) //'wyatt'
+      //   func = function () {
+      //     console.log(name)//'wyatt'
+      //   }
+
+      //   func()
+      // }
+      // name = 'I hacked the name'//'I hacked the name'
+      // func()
+
+      // 3.
+      // var btns = document.getElementsByTagName('button')
+      // for (var i = 0; i < btns.length; i++) {
+      //   btns[i].addEventListener('click', function () {
+      //     console.log('第' + i + '個按紐被點擊') //第五個按鈕被點擊
+      //     // btn的第 1.2.3.4.5 等待點擊印出 '第' + i(1.2.3.4.5) + '個按紐被點擊'
+      //     //但因為var i 的數值沒有塊值作用域最後通通被改成數值5了
+      //   })(
+      //     /*這裡使用閉包*/
+      //     function (i) {
+      //       btns[i].addEventListener('click', function () {
+      //         console.log('第' + i + '個按紐被點擊') //第五個按鈕被點擊
+      //       })
+      //     }
+      //   )(i)
+      // }
+      //為甚麼閉包可以解決問題?
+      //因為函數是一個作用域 等於這裡創建一個匿名涵式 裡面的的i不受到迴圈的i數值變化的影響
+
+      const btns = document.getElementsByTagName('button')
+      for (let i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', function () {
+          console.log('第' + Number(i + 1) + '個按鈕被點擊')
+        })
+      }
+    </script>
+  </body>
+</html>

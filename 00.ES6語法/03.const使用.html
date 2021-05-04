@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //1.一但有const修飾符被賦值之後。不能修改
+      // const name = 'wyatt'
+      // name = 'weird'
+
+      // 2.在使用const定義，必須進行賦值;
+      // const name
+
+      // 3.常量的含意是指向的對象不能修改， 但是可以改變對象內部的屬性
+      // 不可以修改已指定內存的位置，只能改內存內的資料
+      const obj = {
+        name: 'wyatt',
+        age: '23',
+        height: 1.65,
+      }
+      console.log(obj)
+      ;(obj.name = 'wayne'), (obj.age = '22'), (obj.height = 1.7)
+      console.log(obj)
+    </script>
+  </body>
+</html>

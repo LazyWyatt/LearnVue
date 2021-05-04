@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <span v-if="isUser">
+        <label for="account">用戶帳號</label>
+        <input type="text" id="account" placeholder="用戶帳號" />
+      </span>
+      <span v-else>
+        <label for="email"> 用戶信箱 </label>
+        <input type="text" id="email" placeholder="用戶信箱" />
+      </span>
+      <button @click="btnClick">切換類型</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: '#app',
+        data: {
+          isUser: true,
+        },
+        methods: {
+          btnClick() {
+            this.isUser = !this.isUser
+          },
+        },
+        computed: {},
+      })
+    </script>
+  </body>
+</html>

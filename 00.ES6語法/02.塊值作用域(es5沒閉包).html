@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>按鈕1</button>
+    <button>按鈕2</button>
+    <button>按鈕3</button>
+    <button>按鈕4</button>
+    <button>按鈕5</button>
+    <script>
+      // 1.沒有塊值作用域引起的問題: for的塊級
+      var btns = document.getElementsByTagName('button')
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', function () {
+          console.log('第' + Number(i + 1) + '個按鈕被點擊')
+        })
+      }
+
+      // 1.情況一: ES5中沒有使用閉包(錯誤的方式)
+      i = 0
+      {
+        //沒有作用域，相當於都是改變最上面的i(因為有變量提升) var i = 0
+        //!又因為listener是回調函數當點擊的時候才去找尋i
+        btns[i].addEventListener('click', function () {
+          console.log('第' + Number(i + 1) + '個按鈕被點擊')
+        })
+      }
+      {
+        var i = 1
+        btns[i].addEventListener('click', function () {
+          console.log('第' + Number(i + 1) + '個按鈕被點擊')
+        })
+      }
+      {
+        var i = 2
+        btns[i].addEventListener('click', function () {
+          console.log('第' + Number(i + 1) + '個按鈕被點擊')
+        })
+      }
+      // 2.情況二: ES5中使用閉包
+      var btns = document.getElementsByTagName('button')
+      for (var i = 0; i < btns.length; i++) {
+        (function(i) {
+          btns[i].addEventListener('click', function () {
+          console.log('第' + Number(i + 1) + '個按鈕被點擊')
+          })
+        })(i)
+      }
+
+
+      i = 5;
+      function (i) { //i = 0
+        btns[i].addEventListener('click', function () {
+          console.log('第' + Number(i + 1) + '個按鈕被點擊')
+        })
+      }(0)
+      function (i) { //i = 1
+        btns[i].addEventListener('click', function () {
+          console.log('第' + Number(i + 1) + '個按鈕被點擊')
+        })
+      }(1)
+      function (i) { //i = 2
+        btns[i].addEventListener('click', function () {
+          console.log('第' + Number(i + 1) + '個按鈕被點擊')
+        })
+      }(2)
+
+
+      //ES6的let
+      const btns = document.getElementsByTagName('button')
+      for (let i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', function () {
+          console.log('第' + Number(i + 1) + '個按鈕被點擊')
+        })
+      }
+
+      {i = 0
+        btn[i].addEventListener('click',function() {
+          console.log('第' + Number(i + 1) + '個按鈕被點擊');
+        })
+      }
+      {i = 1
+        btn[i].addEventListener('click',function() {
+          console.log('第' + Number(i + 1) + '個按鈕被點擊');
+        })
+      }
+      {i = 2
+        btn[i].addEventListener('click',function() {
+          console.log('第' + Number(i + 1) + '個按鈕被點擊');
+        })
+      }
+    </script>
+  </body>
+</html>
