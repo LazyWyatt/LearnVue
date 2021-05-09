@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1.再變歷對象的過程中，如果只是獲取一個值，獲取的是value -->
+      <ul>
+        <li v-for="item in info">{{item}}</li>
+      </ul>
+
+      <!-- 2.獲取key和value -->
+      <ul>
+        <li v-for="(value, key) in info">{{value}} - {{key}}</li>
+      </ul>
+
+      <!-- 3.獲取key和value和index -->
+      <ul>
+        <li v-for="(value, key, index) in info">
+          {{value}} - {{key}} - {{index}}
+        </li>
+      </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: '#app',
+        data: {
+          info: {
+            name: 'Wyatt',
+            age: 23,
+            height: 1.65,
+          },
+        },
+        methods: {},
+        computed: {},
+      })
+    </script>
+  </body>
+</html>
