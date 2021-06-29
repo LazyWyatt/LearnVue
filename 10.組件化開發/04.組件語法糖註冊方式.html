@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <cpn1></cpn1>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      //1.全局組件註冊的語法糖
+      //1.創建組件構造器
+      // const cpn1 = Vue.extend({
+      //   template:
+      //   `
+      //     <div>
+      //       <h2></h2>
+      //     </div>
+      //   `
+      // })
+      //2.全局組件的語法糖
+      Vue.component('cpn1', {
+        template: `
+          <div>
+            <h2>我是標題</h2>  
+          </div>
+        `,
+      })
+
+      //局部組件註冊的語法糖
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: '你好呀',
+        },
+        components: {
+          cpn2: {
+            template: `
+              <div>
+                <h2>我是局部註冊的組件</h2>  
+              </div>
+              `,
+          },
+        },
+      })
+    </script>
+  </body>
+</html>

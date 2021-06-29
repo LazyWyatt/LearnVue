@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 1.選擇一個 -->
+      <select name="fruits" v-model="fruit" id="">
+        <option value="apple">蘋果</option>
+        <option value="banana">香蕉</option>
+        <option value="guava">芭樂</option>
+        <option value="grape">葡萄</option>
+        <option value="orange">橘子</option>
+      </select>
+      <h1>您選擇的水果是: {{fruit}}</h1>
+      <!-- 2.選擇多個 -->
+      <select name="fruits2" v-model="fruits" id="" multiple>
+        <option value="apple">蘋果</option>
+        <option value="banana">香蕉</option>
+        <option value="guava">芭樂</option>
+        <option value="grape">葡萄</option>
+        <option value="orange">橘子</option>
+      </select>
+      <h1>您選擇的水果是: {{fruits}}</h1>
+      <!-- 3.option value綁定陣列 -->
+      <label v-for="item in originFruits" :for="item">
+        <input
+          type="checkbox"
+          :value="item"
+          :id="item"
+          v-model="selectedFruits"
+        />{{item}}
+      </label>
+      <h1>您選擇的水果是: {{selectedFruits}}</h1>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: '你好呀',
+          fruit: 'banana',
+          fruits: [],
+          originFruits: ['apple', 'banana', 'guava', 'grape', 'orange'],
+          selectedFruits: [],
+        },
+      })
+    </script>
+  </body>
+</html>

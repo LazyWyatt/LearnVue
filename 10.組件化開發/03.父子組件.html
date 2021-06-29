@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <cpn2></cpn2>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      //子組件
+      const cpnC1 = Vue.extend({
+        template: `
+          <div>
+            <h1>我是標題一</h1>
+            <div>哈哈哈</div>
+          </div>
+        `,
+      })
+
+      //父子件
+      const cpnC2 = Vue.extend({
+        template: `
+          <div>
+            <h1>我是標題二</h1>
+            <div>呵呵呵</div>
+            <cpn1></cpn1>
+          </div>
+        `,
+        components: {
+          cpn1: cpnC1,
+        },
+      })
+
+      //root組件
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: '你好呀',
+        },
+        components: {
+          cpn2: cpnC2,
+        },
+      })
+    </script>
+  </body>
+</html>

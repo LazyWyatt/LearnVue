@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <cpn :cbooks="books" :cmessage="message"></cpn>
+    </div>
+
+    <template id="cpn">
+      <div>
+        <p>{{cbooks}}</p>
+        <p>{{cmessage}}</p>
+        <ul>
+          <li v-for="item in cbooks">{{item}}</li>
+        </ul>
+      </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <script>
+      // 父傳子 props
+      const cpn = {
+        template: '#cpn',
+        // props: ['cbooks', 'cmessage'],
+        props: {
+          //1.類型的限制
+          // cbooks: Array,
+          // cmessage: String,
+
+          //2.提供一些默認值,以及必傳的值
+          cmessage: {
+            type: String,
+            default: '你好呀的默認值',
+            required: true, //boolean值
+          },
+          //類型是物件或是陣列時,默認值必須是一個函數
+          cbooks: {
+            type: Array,
+            default() {
+              return []
+            },
+            validator(value) {
+              console.log(value)
+              // return ['真確', '灰階思考', '致富心態'].indexOf(value) !== -1
+              return true
+            },
+          },
+        },
+        data() {
+          return {}
+        },
+        methods: {},
+      }
+
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: '你好呀',
+          books: ['真確', '灰階思考', '致富心態'],
+        },
+        components: {
+          cpn,
+        },
+      })
+    </script>
+  </body>
+</html>

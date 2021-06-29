@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <!-- 父組件模板 -->
+    <div id="app">
+      <cpn
+        :number1="num1"
+        :number2="num2"
+        @num1change="num1Change"
+        @num2change="num2Change"
+      ></cpn>
+    </div>
+    <template id="cpn">
+      <!-- 必須有跟root -->
+      <div>
+        <h2>props:{{number1}}</h2>
+        <h2>data:{{dnumber1}}</h2>
+        <input type="text" v-model="dnumber1" @input="num1Input" />
+        <h2>props:{{number2}}</h2>
+        <h2>data:{{dnumber2}}</h2>
+        <input
+          type="text"
+          v-model="dnumber2"
+          @input="dnumber2=$event.target.value"
+        />
+      </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      const cpn = {
+        template: '#cpn',
+        props: {
+          number1: Number,
+          number2: Number,
+        },
+        data() {
+          return {
+            dnumber1: this.number1,
+            dnumber2: this.number2,
+          }
+        },
+        methods: {
+          num1Input(event) {
+            //1.將input的value賦值到dnumber中
+            this.dnumber1 = event.target.value
+
+            //2.為了讓父組件可以修改值,發出一個事件
+            this.$emit('num1change', this.dnumber1)
+
+            //3.同時修改dnumber2的值
+            this.dnumber2 = this.dnumber1 * 100
+            //4.讓父組件的num2值也發生改變再發出一個事件
+            this.$emit('num2change', this.dnumber2)
+          },
+          num2Input(event) {
+            this.dnumber1 = event.target.value
+            this.$emit('num1change', this.dnumber1)
+          },
+        },
+        watch: {
+          dnumber1(newValue) {
+            this.dnumber2 = newValue * 100
+            this.$emit('num1change', newValue)
+          },
+          dnumber2(newValue) {
+            this.dnumber1 = newValue / 100
+            this.$emit('num2change', newValue)
+          },
+        },
+      }
+      const app = new Vue({
+        el: '#app',
+        data: {
+          num1: 1,
+          num2: 0,
+        },
+        components: {
+          cpn,
+        },
+        methods: {
+          num1Change(value) {
+            this.num1 = parseFloat(value)
+            console.log('Component 1 is change')
+          },
+          num2Change(value) {
+            this.num2 = parseFloat(value)
+            console.log('Component 2 is change')
+          },
+        },
+      })
+    </script>
+  </body>
+</html>

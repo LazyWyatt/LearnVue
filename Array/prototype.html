@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let target = function () {
+        this.a = 1
+        this.b = 2
+      }
+
+      let target1 = new target()
+      console.log(target1)
+
+      target.prototype.b = 3
+      target.prototype.c = 4
+      console.log(target1)
+      // {a: 1, b: 2} ---> {b: 3, c: 4} ---> Object.prototype ---> null
+      console.log(target1.a)
+      console.log(target1.b)
+      // target1 有屬性「b」嗎？有，該數值為 2。
+      // target1 還有個原型屬性「b」，但這裡沒有被訪問到。
+      // 這稱作「property shadowing」。
+
+      console.log(target1.c)
+      // target1 有屬性c嗎?沒有，則從target1 的原型裡找看看
+      // target1 在 target1.[[Prototype]]有屬性c嗎?有該數值為4
+
+      console.dir((Object.__proto__.d = 6))
+      console.dir(Object.__proto__)
+      console.log(target1.d)
+      // target1 有屬性「d」嗎？沒有，那就找 target1 的原型看看。
+      // target1 在「target1.[[Prototype]]」有屬性「d」嗎？沒有，那就找 target1.[[Prototype]] 的原型看看。
+      // target1.[[Prototype]].[[Prototype]] 是 Object.prototype，預設並沒有屬性「d」，那再找他的原型看看。
+      // target1 在「target1.[[Prototype]].[[Prototype]].[[Prototype]]」是 null，停止搜尋。
+      // 找不到任何屬性，回傳 undefined。
+      console.log('---------------------------------------------')
+      var o = {
+        a: 2,
+        m: function () {
+          console.log(this)
+          return this.a + 1
+        },
+      }
+
+      console.log(o.m())
+
+      console.log('---------------------------------------------')
+      // 創建一個從o繼承的物件
+      var p = Object.create(o)
+      //這裡的p是空物件
+      //p.[[Prototype裡有{a:2,m: f()}]]
+      console.log(p)
+      p.a = 4
+      p.m = function () {
+        console.log(this)
+        return this.a + 5
+      }
+      //method overriding
+      console.log(p.m())
+      //小結論
+      //繼承出來的新物件如果沒有指定屬性，並沒有原屬性，屬性為null，如果去呼叫屬性，是從原型中找到的
+      //property shadowing
+    </script>
+  </body>
+</html>

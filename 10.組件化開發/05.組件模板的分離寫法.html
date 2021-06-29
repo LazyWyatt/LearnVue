@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <cpn></cpn>
+    </div>
+    <div id="app2">
+      <cpn></cpn>
+    </div>
+
+    <!-- 1.script標籤，類型要是text/x-template -->
+    <!-- <script type="text/x-template" id="cpn">
+      <div>
+        <h2>我是標題</h2>
+        <p>我是內容</p>
+      </div>
+    </script> -->
+    <!-- 2.template標籤 -->
+    <template id="cpn">
+      <div>
+        <h1>我是template標籤</h1>
+      </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      //1.全局組件
+      Vue.component('cpn', {
+        template: '#cpn',
+      })
+      //組件裡面的data必須是函式
+
+      //局部組件註冊的語法糖
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: '你好呀',
+        },
+        components: {
+          cpn2: {
+            template: `
+              <div>
+                <h2>我是局部註冊的組件</h2>  
+              </div>
+              `,
+          },
+        },
+      })
+      //組件內部是不能訪問Vue實例裡面的數據
+    </script>
+  </body>
+</html>

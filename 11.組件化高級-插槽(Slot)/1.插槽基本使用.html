@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <cpn>
+        <button>案例</button>
+      </cpn>
+      <cpn><span>這是插入span</span></cpn>
+      <cpn>
+        <i>這是插入i</i>
+        <div>我是div元素</div>
+        <p>我是p元素</p>
+      </cpn>
+      <cpn>
+        <button>案例</button>
+      </cpn>
+      <cpn>
+        <button>案例</button>
+      </cpn>
+    </div>
+    <template id="cpn">
+      <div>
+        <h2>我是組件</h2>
+        <p>我是組件內容</p>
+        <slot><button>案例</button></slot>
+        <slot><p>123</p></slot>
+      </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      const cpn = {
+        template: '#cpn',
+      }
+      const app = new Vue({
+        el: '#app',
+        data: {},
+        components: {
+          cpn: cpn,
+        },
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <my-cpn></my-cpn>
+      <cpn></cpn>
+    </div>
+    <div id="app2">
+      <my-cpn></my-cpn>
+      <cpn></cpn>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      //1.創建組件構造器對象
+      const cpnC = Vue.extend({
+        template: `
+        <div>
+          <h2>標題</h2>
+          <p>內容一內容一內容一內容一</p>
+          <p>內容二內容二內容二內容二</p>
+        </div>`,
+      })
+      // 2.註冊組件(全局註冊, 代表可以再多個Vue實例下使用)
+      // 怎麼註冊的組件才是局部組件?
+      Vue.component(`my-cpn`, cpnC)
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: '你好呀',
+        },
+        components: {
+          cpn: cpnC,
+        },
+      })
+
+      const app2 = new Vue({
+        el: '#app2',
+      })
+    </script>
+  </body>
+</html>

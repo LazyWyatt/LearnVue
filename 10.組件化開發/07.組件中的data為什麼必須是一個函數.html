@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- <h1>計數器</h1>
+      <h2>{{count}}</h2>
+      <button @click="handAddBtn">+</button>
+      <button @click="handMinusBtn">-</button> -->
+      <cpn></cpn>
+      <cpn></cpn>
+      <cpn></cpn>
+    </div>
+
+    <template id="cpn">
+      <div>
+        <h1>當前計數: {{count}}</h1>
+        <button @click="increment">+</button>
+        <button @click="decrement">-</button>
+      </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <script>
+      const obj = {
+        count: 0,
+      }
+      //1.註冊組件
+      Vue.component('cpn', {
+        template: '#cpn',
+        //函數是一個塊值作用域
+        data() {
+          return {
+            count: 0,
+          }
+          // return obj
+        },
+        methods: {
+          increment() {
+            this.count++
+          },
+          decrement() {
+            this.count--
+          },
+        },
+      })
+
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: '你好呀',
+          count: 0,
+        },
+        methods: {
+          handAddBtn() {
+            this.count++
+          },
+          handMinusBtn() {
+            this.count--
+          },
+        },
+      })
+    </script>
+
+    <script>
+      const obj = {
+        name: 'wyatt',
+        age: 23,
+      }
+      function d() {
+        return obj
+      }
+      function abc() {
+        return {
+          name: 'wyatt',
+          age: 12,
+        }
+      }
+      let obj1 = abc()
+      let obj2 = abc()
+      let obj3 = abc()
+      console.log(obj1 === obj2)
+      obj1.name = 'Wayne'
+      console.log(obj2)
+      console.log(obj3)
+
+      let obj4 = d()
+      let obj5 = d()
+      let obj6 = d()
+      console.log(obj4 === obj5)
+    </script>
+  </body>
+</html>

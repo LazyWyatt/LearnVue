@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <my-cpn></my-cpn>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      //1.創建組件構造器對象
+      const cpnC = Vue.extend({
+        template: `
+        <div>
+          <h2>標題</h2>
+          <p>內容一內容一內容一內容一</p>
+          <p>內容二內容二內容二內容二</p>
+        </div>`,
+      })
+      // 2.註冊組件
+      Vue.component(`my-cpn`, cpnC)
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: '你好呀',
+        },
+      })
+    </script>
+  </body>
+</html>

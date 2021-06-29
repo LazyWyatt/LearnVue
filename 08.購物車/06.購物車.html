@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    table {
+      border-collapse: collapse;
+      cellpadding: 20px 10px;
+    }
+    th,
+    td {
+      border: solid 1px #222;
+      padding: 5px 10px;
+    }
+    input {
+      width: 15px;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <div v-if="books.length">
+        <table>
+          <caption>
+            購物清單
+          </caption>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>書籍名稱</th>
+              <th>出版日期</th>
+              <th>價格</th>
+              <th>購買數量</th>
+              <th>動作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, idx) in books" :key="item.id">
+              <td>{{idx+1}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.time}}</td>
+              <td>{{item.price | showPrice}}</td>
+              <td>
+                <button @click="decrement(idx)" :disabled="item.count <= 1">
+                  -
+                </button>
+                {{item.count}}
+                <button @click="increment(idx)">+</button>
+              </td>
+              <td>
+                <button @click="removeHandler(idx)">移除</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <summary>
+          總價:
+          <span class="price">{{totalPrice | showPrice}}</span>
+        </summary>
+      </div>
+      <div v-else>
+        <h2>購物車為空</h2>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: '#app',
+        data: {
+          books: [
+            {
+              id: 444,
+              name: '聊天紀錄',
+              time: '2021/05/04',
+              price: 420.0,
+              count: 1,
+            },
+            {
+              id: 446,
+              name: '雙城記（精裝版）',
+              time: '2020/03/24',
+              price: 480.0,
+              count: 1,
+            },
+            {
+              id: 457,
+              name: '牧羊少年奇幻之旅【繪圖本】',
+              time: '2004/08/28',
+              price: 220.0,
+              count: 1,
+            },
+            {
+              id: 499,
+              name: '小王子【70周年精裝紀念版】',
+              time: '2014/12/30',
+              price: 250.0,
+              count: 1,
+            },
+            {
+              id: 568,
+              name: '解憂雜貨店【暖心紀念版】',
+              time: '2018/08/06',
+              price: 350.0,
+              count: 1,
+            },
+          ],
+        },
+        methods: {
+          getFinalPrice(price) {
+            return '$' + price.toFixed(2)
+          },
+          increment(index) {
+            this.books[index].count++
+          },
+          decrement(index) {
+            if (this.books[index].count <= 1) {
+              return
+            }
+            this.books[index].count--
+          },
+          removeHandler(index) {
+            this.books.splice(index, 1)
+          },
+        },
+        filters: {
+          showPrice(price) {
+            return '$' + price.toFixed(2)
+          },
+        },
+        computed: {
+          totalPrice() {
+            //1.普通的for循環
+            // let totalPrice = 0
+            // for (let i = 0; i < this.books.length; i++) {
+            //   totalPrice += this.books[i].price * this.books[i].count
+            // }
+            // return totalPrice
+            //2.for (let i in this.books) 索引值
+            // let totalPrice = 0
+            // for (let i in this.books) {
+            //   totalPrice += this.books[i].price * this.books[i].count
+            // }
+            // return totalPrice
+            // 3.for (let item of this.books) 值
+            // let totalPrice = 0
+            // for (let item of this.books) {
+            //   totalPrice += item.price * item.count
+            // }
+            // return totalPrice
+            // 4.reduce
+            return this.books.reduce(
+              (prev, curr) => prev + curr.price * curr.count,
+              0
+            )
+          },
+        },
+      })
+      // 命令式 -> 每一部都指令
+      // 函數式編程
+      // 編成規則: 面相對象編成(對象)/函數式編成(函數)
+
+      // const nums = [10, 20, 111, 333, 423, 40, 60]
+
+      // let total = nums
+      //   .filter((n) => n < 100)
+      //   .map((n) => n * 2)
+      //   .reduce((prevValue, currValue) => prevValue + currValue, 0)
+      // console.log(total)
+
+      // let total = nums
+      //   .filter(function (n) {
+      //     return n < 100
+      //   })
+      //   .map(function (n) {
+      //     return n * 2
+      //   })
+      //   .reduce(function (prevValue, currValue) {
+      //     return prevValue + currValue
+      //   }, 0)
+
+      // console.log(total)
+
+      // // 1.filter的回call函數有一個要求，必須返回一個boolean值
+      // //true 當返回true時,函數內部會自動將這次的回調的n加入到新的陣列中
+      // //false 當返回false時,函數內部會自動過濾掉n
+      // let newNums = nums.filter(function (n) {
+      //   return n < 100
+      // })
+
+      // //2.map函數的使用
+      // let new2Nums = newNums.map(function (n) {
+      //   return n * 2
+      // })
+
+      // console.log(new2Nums)
+
+      // //3.reduce函數的使用
+      // let total = new2Nums.reduce(function (prevValue, currValue, currIdx) {
+      //   return prevValue + currValue
+      // }, 0)
+      // //第一次 : prevValue 0 , 20;
+      // //第二次 : prevValue return值(20), 40
+      // //第二次 : prevValue return值(60), 80
+      // //第二次 : prevValue return值(140), 120
+      // // 最後total = 260
+      // console.log(total)
+
+      // filter和map的差別
+      //filter回調的是boolean值,map回調的是一個表達式
+
+      // // 1.需求: 取出所有小於100的數字
+      // let newNums = []
+      // for (let n of nums) {
+      //   if (n < 100) {
+      //     newNums.push(n)
+      //   }
+      // }
+      // // 2.將所有小於100的數字進行轉化: 全部*2
+      // let new2Nums = []
+      // for (let n of newNums) {
+      //   new2Nums.push(n * 2)
+      // }
+      // console.log(new2Nums)
+
+      // // 3.將所有new2Nums的數字相加，得到最終紀錄
+      // let total = 0
+      // for (let n of new2Nums) {
+      //   total += n
+      // }
+    </script>
+  </body>
+</html>

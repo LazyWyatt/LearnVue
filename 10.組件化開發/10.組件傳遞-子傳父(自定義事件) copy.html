@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <!-- 父組件模板 -->
+    <div id="app">
+      <cpn v-on:item-click="cpnClick"></cpn>
+    </div>
+
+    <!-- 子組件模板 -->
+    <template id="cpn">
+      <div>
+        <button v-for="item in categories" @click="handBtnClick(item)">
+          {{item.name}}
+        </button>
+      </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      const cpn = {
+        template: '#cpn',
+        data() {
+          return {
+            categories: [
+              { id: 'aaa', name: '熱門推薦' },
+              { id: 'bbb', name: '免運專區' },
+              { id: 'ccc', name: '書城' },
+              { id: 'ddd', name: '美食外送' },
+            ],
+          }
+        },
+        methods: {
+          handBtnClick(item) {
+            // console.log(item)
+            //$emit(事件名, 參數)
+            this.$emit('item-click', item)
+          },
+        },
+      }
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: '你好呀',
+          info: {
+            name: 'Wyatt',
+            age: 23,
+            height: 1.65,
+          },
+        },
+        components: {
+          cpn,
+        },
+        methods: {
+          cpnClick(item) {
+            console.log('123', item)
+          },
+        },
+      })
+    </script>
+  </body>
+</html>

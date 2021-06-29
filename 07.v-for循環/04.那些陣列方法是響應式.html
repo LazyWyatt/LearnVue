@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="item in letters">{{item}}</li>
+      </ul>
+      <button @click="btnClick">按鈕</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: '#app',
+        data: {
+          letters: ['d', 'a', 'b', 'c', 'd'],
+        },
+        methods: {
+          btnClick() {
+            //1.push方法
+            // this.letters.push('aaa')
+            // this.letters.push('aaa', 'bbb', 'ccc')
+            //2.通過索引值更改陣列的元素
+            // this.letters[0] = 'bbb'
+            //pop()刪除陣列的最後一個元素
+            // this.letters.pop()
+            //shift() 刪除陣列的第一個元素
+            // this.letters.shift();
+            //unshift() 陣列最前面添加元素
+            // this.letters.unshift('aaa', 'bbb', 'ccc')
+            // aaa, bbb, ccc ,a ,b, c, d
+            // splice()
+            //最多三個參數
+            //作用:刪除元素/插入元素/替換元素
+            //刪除元素: 第二個參數你要刪除幾個元素，不傳入的話會從第一個參數之後的值通通刪除
+            // this.letters.splice(1)
+
+            // const start = 2
+            // this.letters.splice(start, this.letters.length - start)
+
+            //替換元素: 第二個參數，來表示我們要替換幾個元素，後面是要替的前面的元素
+            // this.letters.splice(1, 3, 'm', 'm', 'o')
+
+            //插入元素
+            //第二個參數刪除個參數之後加入要插入的參數
+            // this.letters.splice(1, 0, 'insert', 'element')
+
+            // sort()
+            // this.letters.sort()
+
+            // reverse()
+            // this.letters.reverse()
+
+            // this.letters.splice(0, 1, 'bbb');
+
+            //set(要修改的對象,修改的索引值,修改後的值)
+            Vue.set(this.letters, 1, 'change')
+          },
+        },
+      })
+
+      // function sum(num1, num2, num3) {
+      //   return num1 + num2 + num3
+      // }
+
+      //可變陣列
+      function sum(...num) {
+        console.log(num)
+      }
+
+      sum(20, 30, 40, 50, 60, 70, 80)
+    </script>
+  </body>
+</html>
